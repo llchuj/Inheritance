@@ -1,20 +1,54 @@
 import java.util.Scanner;
 
 public class StoreToRent {
-    
     private static final double MAINTENANCE_COST = 1000;
-    
-    
+    private static final double INTEREST_RATE = 0.25;
+
     private String storeName;
     private String storeBusiness;
     private double totalArea;
     private double sellingPrice;
     private double rent;
-
     private String minimumLeasePeriod;
     private String floorNumber;
     private boolean available;
+    private boolean loanRequired;
+    private double loanAmount;
+    private int loanPaymentTerm;
 
+    // 构造函数
+    public StoreToRent(boolean loanRequired, double loanAmount, int loanPaymentTerm) {
+        this.loanRequired = loanRequired;
+        this.loanAmount = loanAmount;
+        this.loanPaymentTerm = loanPaymentTerm;
+    }
+
+    // Getter 方法
+    public double getInterestRate() {
+        return INTEREST_RATE;
+    }
+
+    public boolean isLoanRequired() {
+        return loanRequired;
+    }
+
+    public double getLoanAmount() {
+        return loanAmount;
+    }
+
+    public int getLoanPaymentTerm() {
+        return loanPaymentTerm;
+    }
+
+    // 计算贷款融资的方法
+    public double calculateLoanFinancing() {
+        if (loanRequired) {
+            return (loanAmount * (1 + INTEREST_RATE)) / loanPaymentTerm;
+        }
+        return 0;
+    }
+
+    // 其他已有方法保持不变
     public String getStoreName() {
         return storeName;
     }
@@ -79,7 +113,7 @@ public class StoreToRent {
         this.available = available;
     }
 
-    public void enterStoreDetails(){
+    public void enterStoreDetails() {
         Scanner input = new Scanner(System.in);
         System.out.println("Enter Store Name: ");
         setStoreName(input.nextLine());
@@ -99,22 +133,21 @@ public class StoreToRent {
         System.out.println("Enter Floor Number: ");
         setFloorNumber(input.nextLine());
         System.out.println("Enter Available: ");
-        setAvailable(input.nextBoolean());    
+        setAvailable(input.nextBoolean());
         input.close();
-        
     }
 
     @Override
     public String toString() {
-        return "\n" + 
-        "Store Name: " + storeName + "\n" +
-        "Store Business: " + storeBusiness + "\n" +
-        "Total Area (sq.m): " + totalArea + "\n" + 
-        "Selling Price: €" + sellingPrice + "\n" +
-        "Rent: €" + rent + "\n" +
-        "Minimum Lease Period: " + minimumLeasePeriod + "\n" +
-        "Floor Number: " + floorNumber + "\n" +
-        "Maintenance Cost: €" + MAINTENANCE_COST + "\n" +
-        "Available: " + available + "\n";
+        return "\n" +
+                "Store Name: " + storeName + "\n" +
+                "Store Business: " + storeBusiness + "\n" +
+                "Total Area (sq.m): " + totalArea + "\n" +
+                "Selling Price: €" + sellingPrice + "\n" +
+                "Rent: €" + rent + "\n" +
+                "Minimum Lease Period: " + minimumLeasePeriod + "\n" +
+                "Floor Number: " + floorNumber + "\n" +
+                "Maintenance Cost: €" + MAINTENANCE_COST + "\n" +
+                "Available: " + available + "\n";
     }
 }
